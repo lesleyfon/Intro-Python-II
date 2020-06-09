@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -24,14 +25,14 @@ earlier adventurers. The only exit is to the south."""),
 
 # Link rooms together
 
-room['outside'].n_to = room['foyer']
-room['foyer'].s_to = room['outside']
-room['foyer'].n_to = room['overlook']
-room['foyer'].e_to = room['narrow']
-room['overlook'].s_to = room['foyer']
-room['narrow'].w_to = room['foyer']
-room['narrow'].n_to = room['treasure']
-room['treasure'].s_to = room['narrow']
+# room['outside'].n_to = room['foyer']
+# room['foyer'].s_to = room['outside']
+# room['foyer'].n_to = room['overlook']
+# room['foyer'].e_to = room['narrow']
+# room['overlook'].s_to = room['foyer']
+# room['narrow'].w_to = room['foyer']
+# room['narrow'].n_to = room['treasure']
+# room['treasure'].s_to = room['narrow']
 
 #
 # Main
@@ -44,21 +45,12 @@ room['treasure'].s_to = room['narrow']
 # * Prints the current room name
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.
+
 #
 # If the user enters a cardinal direction, attempt to move to the room there.
 # Print an error message if the movement isn't allowed.
 #
-# If the user enters "q", quit the game.
-print(room)
-'''
-    {
-        'outside': < room.Room object at 0x7fcd8f269b50 >,
-        'foyer': < room.Room object at 0x7fcd8f269730 > ,
-        'overlook': < room.Room object at 0x7fcd8f2698b0 > ,
-        'narrow': < room.Room object at 0x7fcd8f3351f0 > ,
-        'treasure': < room.Room object at 0x7fcd8f335220 >
-    }
- '''
+# If the user enters "q", quit the game.å
 '''
     step 1:
         - Create a loop to accepts inputs. It should be continouse unless the user break or quit
@@ -67,18 +59,37 @@ print(room)
 
 
 while True:
+
     user_direction = input(
-        "Input the direction you will like to move towards(Valid inputs [N, W, S, E])").upper()
+        "Input the direction you will like to move towards(Valid inputs [N, W, S, E])").lower()
 
+    playerone = Player("First Player", room["outside"])
+    print(playerone.current_room)
+    print(playerone.current_room.description + "\n")
     try:
-        if user_direction in ["S", "W", "N", "E"]:
+        if user_direction in ["s", "w", "n", "e"]:
+            if user_direction == "w":
 
-            room["outside"].printAllRooms(user_direction)
+                room['outside'].w_to.append(room["outside"])
+                print(room["outside"])
 
-        elif user_direction == "Q":
-            print("Thanks For playing, See you")
+            elif user_direction == "s":
+                room['outside'].s_to.append(room["outside"])
+                print(room["outside"])
+
+            elif user_direction == "n":
+
+                room['outside'].n_to.append(room["outside"])
+                print(room["outside"])
+
+            elif user_direction == "e":
+                room['outside'].e_to.append(room["outside"])
+                print(room["outside"])
+
+        elif user_direction == "q":
+            print("\n Thanks For playing, See you ")
             break
         else:
-            print("Please enter a valid input")
+            print("\n Movement isn't allowed, Please enter a valid input ")
     except ValueError:
         print("Please enter a valid number")
