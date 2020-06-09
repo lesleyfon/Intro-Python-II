@@ -49,7 +49,16 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
-
+print(room)
+'''
+    {
+        'outside': < room.Room object at 0x7fcd8f269b50 >,
+        'foyer': < room.Room object at 0x7fcd8f269730 > ,
+        'overlook': < room.Room object at 0x7fcd8f2698b0 > ,
+        'narrow': < room.Room object at 0x7fcd8f3351f0 > ,
+        'treasure': < room.Room object at 0x7fcd8f335220 >
+    }
+ '''
 '''
     step 1:
         - Create a loop to accepts inputs. It should be continouse unless the user break or quit
@@ -63,7 +72,8 @@ while True:
 
     try:
         if user_direction in ["S", "W", "N", "E"]:
-            print(user_direction)
+
+            room["outside"].printAllRooms(user_direction)
 
         elif user_direction == "Q":
             print("Thanks For playing, See you")
