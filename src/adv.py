@@ -1,6 +1,6 @@
 from room import Room
 from player import Player
-
+from item import Item
 # Declare all the rooms
 
 room = {
@@ -63,8 +63,22 @@ print(playerone.current_room)
 print(playerone.current_room.description + "\n")
 while True:
 
-    user_direction = input(
+    user_input = input(
         "Input the direction you will like to move towards(Valid inputs [N, W, S, E])")
+
+    user_direction = ''
+
+    # Parse user input of they type in multiple words
+    if len(user_input.split(" ")) > 1:
+        user_input = user_input.split(" ")
+        user_direction = user_input[0]
+        show_inventory = user_input[2]
+        weapon = user_input[1]
+        if show_inventory:
+            print(playerone.items)
+    else:
+        user_direction = user_input
+
     try:
         if user_direction in ["s", "w", "n", "e"]:
 

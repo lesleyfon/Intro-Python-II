@@ -18,5 +18,15 @@ class Room:
 
     def print_items(self):
         if len(items) >= 1:
-            for item in items:
+            for item in self.items:
                 print(item)
+
+    def get(self, item_name):
+        return_item = ''
+        if item_name in self.items:
+
+            for item in self.items:
+                return_item = self.items.remove(item)
+        else:
+            return_item = 'No item was found'
+        return return_item
