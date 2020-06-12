@@ -25,16 +25,15 @@ earlier adventurers. The only exit is to the south."""),
 
 # Link rooms together
 
-# room['outside'].n_to = room['foyer']
-# room['foyer'].s_to = room['outside']
-# room['foyer'].n_to = room['overlook']
-# room['foyer'].e_to = room['narrow']
-# room['overlook'].s_to = room['foyer']
-# room['narrow'].w_to = room['foyer']
-# room['narrow'].n_to = room['treasure']
-# room['treasure'].s_to = room['narrow']
+room['outside'].n_to = room['foyer']
+room['foyer'].s_to = room['outside']
+room['foyer'].n_to = room['overlook']
+room['foyer'].e_to = room['narrow']
+room['overlook'].s_to = room['foyer']
+room['narrow'].w_to = room['foyer']
+room['narrow'].n_to = room['treasure']
+room['treasure'].s_to = room['narrow']
 
-#
 # Main
 #
 
@@ -51,41 +50,50 @@ earlier adventurers. The only exit is to the south."""),
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.å
+
 '''
     step 1:
         - Create a loop to accepts inputs. It should be continouse unless the user break or quit
         - A while loop will be perfect
 '''
+# Create a player and assign the outside to the current room
+playerone = Player("Lesley", room["outside"])
 
-
+print(playerone.current_room)
+print(playerone.current_room.description + "\n")
 while True:
 
     user_direction = input(
-        "Input the direction you will like to move towards(Valid inputs [N, W, S, E])").lower()
-
-    playerone = Player("First Player", room["outside"])
-    print(playerone.current_room)
-    print(playerone.current_room.description + "\n")
+        "Input the direction you will like to move towards(Valid inputs [N, W, S, E])")
     try:
         if user_direction in ["s", "w", "n", "e"]:
-            if user_direction == "w":
 
-                room['outside'].w_to.append(room["outside"])
-                print(room["outside"])
+            if user_direction == "n" and "outside" in playerone.current_room.name.lower():
+                playerone.current_room = room["foyer"]
+            elif user_direction == "s" and "foyer" in playerone.current_room.name.lower():
+                playerone.current_room = room["outside"]
 
-            elif user_direction == "s":
-                room['outside'].s_to.append(room["outside"])
-                print(room["outside"])
+            elif user_direction == "n" and "foyer" in playerone.current_room.name.lower():
+                playerone.current_room = room["overlook"]
 
-            elif user_direction == "n":
+            elif user_direction == "e" and "foyer" in playerone.current_room.name.lower():
+                playerone.current_room = room["narrow"]
 
-                room['outside'].n_to.append(room["outside"])
-                print(room["outside"])
+            elif user_direction == "s" and "overlook" in playerone.current_room.name.lower():
+                playerone.current_room = room["foyer"]
 
-            elif user_direction == "e":
-                room['outside'].e_to.append(room["outside"])
-                print(room["outside"])
+            elif user_direction == "w" and "narrow" in playerone.current_room.name.lower():
+                playerone.current_room = room["foyer"]
 
+            elif user_direction == "n" and "narrow" in playerone.current_room.name.lower():
+                playerone.current_room = room["treasure"]
+
+            elif user_direction == "n" and "treasure" in playerone.current_room.name.lower():
+                playerone.current_room = room["narrow"]
+
+            else:
+                print("Player can't move in that direction")
+            pass
         elif user_direction == "q":
             print("\n Thanks For playing, See you ")
             break
@@ -93,3 +101,7 @@ while True:
             print("\n Movement isn't allowed, Please enter a valid input ")
     except ValueError:
         print("Please enter a valid number")
+
+'''
+
+'''
