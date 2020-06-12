@@ -1,5 +1,6 @@
 from room import Room
-
+from player import Player
+from item import Item
 # Declare all the rooms
 
 room = {
@@ -33,7 +34,6 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
-#
 # Main
 #
 
@@ -44,8 +44,86 @@ room['treasure'].s_to = room['narrow']
 # * Prints the current room name
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.
+
 #
 # If the user enters a cardinal direction, attempt to move to the room there.
 # Print an error message if the movement isn't allowed.
 #
-# If the user enters "q", quit the game.
+# If the user enters "q", quit the game.å
+
+'''
+    step 1:
+        - Create a loop to accepts inputs. It should be continouse unless the user break or quit
+        - A while loop will be perfect
+'''
+# Create a player and assign the outside to the current room
+playerone = Player("Lesley", room["outside"])
+
+print(playerone.current_room)
+print(playerone.current_room.description + "\n")
+while True:
+
+    user_input = input(
+        "Input the direction you will like to move towards(Valid inputs [N, W, S, E])")
+
+    user_direction = ''
+
+    # Parse user input of they type in multiple words
+    if len(user_input.split(" ")) > 1:
+        user_input = user_input.split(" ")
+        user_direction = user_input[0]
+        show_inventory = user_input[2]
+        weapon = user_input[1]
+        if show_inventory:
+            print(playerone.items)
+    else:
+        user_direction = user_input
+
+    try:
+        if user_direction in ["s", "w", "n", "e"]:
+
+            if user_direction == "n" and "outside" in playerone.current_room.name.lower():
+                playerone.current_room = room["foyer"]
+                playerone.print_current_room_details()
+            elif user_direction == "s" and "foyer" in playerone.current_room.name.lower():
+                playerone.current_room = room["outside"]
+                playerone.print_current_room_details()
+
+            elif user_direction == "n" and "foyer" in playerone.current_room.name.lower():
+                playerone.current_room = room["overlook"]
+                playerone.print_current_room_details()
+
+            elif user_direction == "e" and "foyer" in playerone.current_room.name.lower():
+                playerone.current_room = room["narrow"]
+                playerone.print_current_room_details()
+
+            elif user_direction == "s" and "overlook" in playerone.current_room.name.lower():
+                playerone.current_room = room["foyer"]
+                playerone.print_current_room_details()
+
+            elif user_direction == "w" and "narrow" in playerone.current_room.name.lower():
+                playerone.current_room = room["foyer"]
+                playerone.print_current_room_details()
+
+            elif user_direction == "n" and "narrow" in playerone.current_room.name.lower():
+                playerone.current_room = room["treasure"]
+                playerone.print_current_room_details()
+
+            elif user_direction == "n" and "treasure" in playerone.current_room.name.lower():
+                playerone.current_room = room["narrow"]
+                playerone.print_current_room_details()
+
+            else:
+                print("Player can't move in that direction")
+            pass
+        elif user_direction == "q":
+            print("\n Thanks For playing, See you ")
+            break
+        else:
+            print("\n Movement isn't allowed, Please enter a valid input ")
+    except ValueError:
+        print("Please enter a valid number")
+
+'''
+
+'''
