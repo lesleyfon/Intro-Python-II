@@ -70,26 +70,34 @@ while True:
 
             if user_direction == "n" and "outside" in playerone.current_room.name.lower():
                 playerone.current_room = room["foyer"]
+                playerone.print_current_room_details()
             elif user_direction == "s" and "foyer" in playerone.current_room.name.lower():
                 playerone.current_room = room["outside"]
+                playerone.print_current_room_details()
 
             elif user_direction == "n" and "foyer" in playerone.current_room.name.lower():
                 playerone.current_room = room["overlook"]
+                playerone.print_current_room_details()
 
             elif user_direction == "e" and "foyer" in playerone.current_room.name.lower():
                 playerone.current_room = room["narrow"]
+                playerone.print_current_room_details()
 
             elif user_direction == "s" and "overlook" in playerone.current_room.name.lower():
                 playerone.current_room = room["foyer"]
+                playerone.print_current_room_details()
 
             elif user_direction == "w" and "narrow" in playerone.current_room.name.lower():
                 playerone.current_room = room["foyer"]
+                playerone.print_current_room_details()
 
             elif user_direction == "n" and "narrow" in playerone.current_room.name.lower():
                 playerone.current_room = room["treasure"]
+                playerone.print_current_room_details()
 
             elif user_direction == "n" and "treasure" in playerone.current_room.name.lower():
                 playerone.current_room = room["narrow"]
+                playerone.print_current_room_details()
 
             else:
                 print("Player can't move in that direction")
