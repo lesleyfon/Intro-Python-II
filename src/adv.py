@@ -114,6 +114,7 @@ while True:
                 playerone.print_current_room_details()
 
             else:
+
                 print("Player can't move in that direction")
             pass
         elif user_direction == "q":
